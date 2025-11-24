@@ -30,3 +30,16 @@ model PersonasAtendidas {
 
   @@map("personas_atendidas")
 }
+
+model Profesionales {
+  id                    Int      @id @default(autoincrement())
+  nombres               String
+  apellidos             String
+  registroProfesional   String   @unique @map("registro_profesional")
+  especialidad          String
+  correo                String   @unique
+  telefono              String
+  agendaHabilitada      Boolean  @default(true) @map("agenda_habilitada")
+
+  @@map("profesionales")
+}
