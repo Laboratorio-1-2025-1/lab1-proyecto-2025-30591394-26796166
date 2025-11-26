@@ -28,6 +28,8 @@ model PersonasAtendidas {
   alergias           String?
   estado             Boolean  @default(true)
 
+  citas               Citas[]
+
   @@map("personas_atendidas")
 }
 
@@ -41,5 +43,70 @@ model Profesionales {
   telefono              String
   agendaHabilitada      Boolean  @default(true) @map("agenda_habilitada")
 
+  citas               Citas[]
+
   @@map("profesionales")
+}
+
+model UnidadesAtencion {
+  id              Int      @id @default(autoincrement())
+  nombre          String   @map("nombre")
+  direccion       String   @map("direccion")
+  telefono        String   @map("telefono")
+  estado          Boolean  @default(true)
+
+  citas           Citas[]
+
+  @@map("unidades_atencion")
+}
+
+model Tratamientos {
+  id              Int      @id @default(autoincrement())
+  nombre          String
+  descripcion     String
+  costo           Decimal  @db.Decimal(10, 2)
+  activo          Boolean  @default(true)
+
+  @@map("tratamientos")
+}
+
+model Roles {
+  id              Int      @id @default(autoincrement())
+  nombre          String   @unique
+  descripcion     String
+
+  usuarios        Usuarios[]
+
+  @@map("roles")
+}
+
+model Usuarios {
+  id              Int      @id @default(autoincrement())
+  correo          String   @unique
+  password        String   
+  activo          Boolean  @default(true)
+
+  // PK Roles
+  rolId           Int      @map("rol_id")
+  rol             Roles    @relation(fields: [rolId], references: [id])
+
+  @@map("usuarios")
+}
+
+model Citas {
+  id                    Int                 @id @default(autoincrement())
+  fechaHora             DateTime            @map("fecha_hora")
+  motivo                String              
+  estadoCita            String              @default("PROGRAMADA") @map("estado_cita")
+
+  // PKs
+  pacienteId            Int                 @map("paciente_id")
+  profesionalId         Int                 @map("profesional_id")
+  unidadId              Int                 @map("unidad_id")
+
+  paciente              PersonasAtendidas   @relation(fields: [pacienteId], references: [id])
+  profesional           Profesionales       @relation(fields: [profesionalId], references: [id])
+  unidadAtencion        UnidadesAtencion    @relation(fields: [unidadId], references: [id])
+
+  @@map("citas")
 }
