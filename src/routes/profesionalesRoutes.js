@@ -1,7 +1,7 @@
-import express from 'express';
-import ProfesionalesController from '../controllers/ProfesionalesController.js'; 
+import express from "express"
+import ProfesionalesController from "../controllers/ProfesionalesController.js"
 
-const router = express.Router();
+const router = express.Router()
 
 /**
  * @openapi
@@ -13,109 +13,118 @@ const router = express.Router();
 /**
  * @openapi
  * /profesionales:
- * post:
- * tags: [Profesionales]
- * summary: Crear un nuevo profesional
- * requestBody:
- * required: true
- * content:
- * application/json:
- * schema:
- * $ref: '#/components/schemas/ProfesionalCreate'
- * responses:
- * 201:
- * description: Profesional creado
- * 400:
- * description: Datos inválidos
- * 409:
- * description: Conflicto (documento duplicado)
+ *   post:
+ *     tags:
+ *       - Profesionales
+ *     summary: Crear un nuevo profesional
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ProfesionalCreate'
+ *     responses:
+ *       '201':
+ *         description: Profesional creado
+ *       '400':
+ *         description: Datos inválidos
+ *       '409':
+ *         description: Conflicto (documento duplicado)
  */
-router.post('/', ProfesionalesController.createProfesional);
+router.post("/", ProfesionalesController.createProfesional)
 
 /**
  * @openapi
  * /profesionales:
- * get:
- * tags: [Profesionales]
- * summary: Obtener todos los profesionales
- * responses:
- * 200:
- * description: Lista de profesionales
- * content:
- * application/json:
- * schema:
- * type: array
- * items:
- * $ref: '#/components/schemas/Profesional'
+ *   get:
+ *     tags:
+ *       - Profesionales
+ *     summary: Obtener todos los profesionales
+ *     responses:
+ *       '200':
+ *         description: Lista de profesionales
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Profesional'
  */
-router.get('/', ProfesionalesController.getAllProfesionales);
+router.get("/", ProfesionalesController.getAllProfesionales)
 
 /**
  * @openapi
  * /profesionales/{id}:
- * get:
- * tags: [Profesionales]
- * summary: Obtener un profesional por ID
- * parameters:
- * - in: path
- * name: id
- * required: true
- * schema:
- * type: string
- * responses:
- * 200:
- * description: Profesional encontrado
- * 404:
- * description: No encontrado
+ *   get:
+ *     tags:
+ *       - Profesionales
+ *     summary: Obtener un profesional por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       '200':
+ *         description: Profesional encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Profesional'
+ *       '404':
+ *         description: No encontrado
  */
-router.get('/:id', ProfesionalesController.getProfesionalById);
+router.get("/:id", ProfesionalesController.getProfesionalById)
 
 /**
  * @openapi
  * /profesionales/{id}:
- * patch:
- * tags: [Profesionales]
- * summary: Actualizar un profesional (parcial)
- * parameters:
- * - in: path
- * name: id
- * required: true
- * schema:
- * type: string
- * requestBody:
- * required: true
- * content:
- * application/json:
- * schema:
- * $ref: '#/components/schemas/ProfesionalUpdate'
- * responses:
- * 200:
- * description: Profesional actualizado
- * 400:
- * description: Datos inválidos
- * 404:
- * description: No encontrado
+ *   patch:
+ *     tags:
+ *       - Profesionales
+ *     summary: Actualizar un profesional (parcial)
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ProfesionalUpdate'
+ *     responses:
+ *       '200':
+ *         description: Profesional actualizado
+ *       '400':
+ *         description: Datos inválidos
+ *       '404':
+ *         description: No encontrado
  */
-router.patch('/:id', ProfesionalesController.patchProfesional);
+router.patch("/:id", ProfesionalesController.patchProfesional)
 
 /**
  * @openapi
  * /profesionales/{id}:
- * delete:
- * tags: [Profesionales]
- * summary: Eliminar un profesional por ID
- * parameters:
- * - in: path
- * name: id
- * required: true
- * schema:
- * type: string
- * responses:
- * 204:
- * description: Eliminado correctamente
- * 404:
- * description: No encontrado
+ *   delete:
+ *     tags:
+ *       - Profesionales
+ *     summary: Eliminar un profesional por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       '204':
+ *         description: Eliminado correctamente
+ *       '404':
+ *         description: No encontrado
  */
-router.delete('/:id', ProfesionalesController.deleteProfesional);
+router.delete("/:id", ProfesionalesController.deleteProfesional)
 
-export default router;
+export default router
